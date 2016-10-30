@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            height: 600px;
+            width: 500px;
+            border: 2px red solid;
+            border-radius: 20px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top {
+            flex: 3;
+            border-radius: 20px;
+            position: relative;
+            overflow: auto;
+        }
+
+        .floot {
+            border-radius: 20px;
+            flex: 1;
+            background: pink;
+            position: relative;
+        }
+
+        .text {
+            width: 100%;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+        }
+
+        input:nth-child(1) {
+            flex: 4;
+        }
+
+        input:nth-child(2) {
+            flex: 1;
+        }
+
+        .top .ai {
+            position: relative;
+            width: 100%;
+            height: 30px;
+            margin-top: 50px;
+        }
+
+        .top .me {
+            position: relative;
+            width: 100%;
+            height: 30px;
+            margin-top: 10px;
+        }
+
+        .top .ai > div {
+            float: left;
+            line-height: 30px;
+            background: red;
+            border-radius: 20px;
+            padding: 10px 0px 10px 0px;
+        }
+
+        .top .me > div {
+            float: right;
+            line-height: 30px;
+            background: red;
+            border-radius: 20px;
+            padding: 10px 0px 10px 0px;
+        }
+
+        .top .me div:nth-child(1) {
+            padding: 10px 10px 10px 10px;
+        }
+
+        .top .ai div:nth-child(1) {
+            padding: 10px 10px 10px 10px;
+        }
+
+        .top .ai .ai1 {
+            height: 30px;
+            width: 30px;
+            background: url("gifTdFh.jpg") no-repeat center;
+            background-size: 80px;
+        }
+
+        .top .me .me2 {
+            height: 30px;
+            width: 30px;
+            background: url("Zakwh0C.jpg") no-repeat center;
+            background-size: 80px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="top"></div>
+    <div class="floot">
+        <div class="text">
+            <input type="text" name="value">
+            <input type="submit" value="发送">
+        </div>
+    </div>
+</div>
+<script src="jquery.min.js"></script>
+<script>
+    window.onload = function () {
+        var fa = document.querySelector("input[type=submit]")
+        var text = document.querySelector("input[type=text]")
+        var top = document.querySelector(".top")
+        $("input[type=submit]").click(function () {
+            tianjia(text.value, "me")
+            $.ajax({
+                url: "http://www.tuling123.com/openapi/api",
+                type: "post",
+                data: {
+                    "key": "8a88208354f543f79bee5120123eb0cf",
+                    "info": $("input[type=text]").val(),
+                    "userid": "12345678"
+                },
+                success: function (date) {
+                    console.log(date)
+                    var da=date["text"]
+                    tianjia(da, "ai")
+                    top.scrollTop = top.scrollHeight;
+                    text.value = ""
+                }
+            })
+        })
+
+        function tianjia(data, info) {
+            var div1 = document.createElement("div")
+            var div2 = document.createElement("div")
+            var div3 = document.createElement("div")
+            if (info == "me") {
+                div1.classList.add("me")
+                div2.classList.add("me2")
+                div3.classList.add("me1")
+            } else {
+                div1.classList.add("ai")
+                div2.classList.add("ai1")
+                div3.classList.add("ai2")
+            }
+            div3.innerHTML = data
+            div1.appendChild(div2)
+            div1.appendChild(div3)
+            top.appendChild(div1)
+        }
+
+        document.onkeydown = function (e) {
+            if (e.keyCode == 13) {
+                fa.click()
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
