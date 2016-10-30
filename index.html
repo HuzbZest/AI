@@ -2,7 +2,6 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <title></title>
     <style>
         * {
@@ -123,8 +122,9 @@
         $("input[type=submit]").click(function () {
             tianjia(text.value, "me")
             $.ajax({
-                url: "http://www.tuling123.com/openapi/api",
+                url: "https://www.tuling123.com/openapi/api",
                 type: "post",
+                dataType: "jsonp",
                 data: {
                     "key": "8a88208354f543f79bee5120123eb0cf",
                     "info": $("input[type=text]").val(),
